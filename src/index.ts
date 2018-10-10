@@ -17,10 +17,22 @@ const typeDefs = gql`
   type Todo {
     id: ID!
     title: String!
-    completed: Bool!
+    completed: Boolean!
   }
 
   type Query {
     todos: [Todo!]
   }
 `;
+
+const resolvers = {
+  Query: {
+    todos: () => todos
+  }
+};
+
+const server = new ApolloServer({ typeDefs, resolvers });
+
+server.listen().then(({ url }) => {
+  console.log(`🚀  Server ready at ${url}`);
+});
